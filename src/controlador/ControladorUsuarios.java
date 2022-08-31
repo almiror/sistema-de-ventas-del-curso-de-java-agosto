@@ -11,7 +11,7 @@ public class ControladorUsuarios {
     private Connection cn = conectando.conexion();
     
     public boolean insertarUsuario(ModeloUsuarios dts){
-        String query = "INSERT INTO usuarios (nombre, apellido,tipo_documento,numero_documento, tipo_usuario,nombre_usuario,contrasenia_usuario,estado) "
+        String query = "INSERT INTO usuarios (nombre, apellido,tipo_documento,numero_documento,tipo_usuario,nombre_usuario,contrasenia_usuario,estado) "
                 + " VALUES(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst  = cn.prepareStatement(query);
