@@ -5,6 +5,9 @@
  */
 package vista;
 
+import controlador.ControladorUsuarios;
+import modelo.ModeloUsuarios;
+
 /**
  *
  * @author julio
@@ -177,6 +180,11 @@ public class Usuarios extends javax.swing.JInternalFrame {
         btnRegistrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -273,6 +281,28 @@ public class Usuarios extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+       ModeloUsuarios mUsuario = new ModeloUsuarios();
+       mUsuario.setNombre(txtNombre.getText());
+       mUsuario.setApellido(txtApellidos.getText());
+       mUsuario.setTipo_decumento(cbxTipoDocumento.getSelectedItem().toString());
+       mUsuario.setNumero_documento(txtNumeroDocumento.getText());
+       mUsuario.setTipo_usuario(cbxTipoDeUsuario.getSelectedItem().toString());
+       mUsuario.setNommbreUsuario(txtNombreDeUsuario.getText());
+       mUsuario.setContrasenia(txtPassword.getText());
+       boolean miestado = false;
+       if(cbxEstado.getSelectedItem().toString().equals("ACTIVO")) {
+           miestado = true;
+       } 
+       mUsuario.setEstado(miestado);
+        ControladorUsuarios cUsuarios = new ControladorUsuarios();
+        if(cUsuarios.insertarUsuario(mUsuario)){
+            System.out.println("RESGITRO EXITOSO");
+        } else {
+            System.out.println("NO SE HIZO EL REGISTRO");
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

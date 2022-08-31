@@ -119,6 +119,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuUsuarios.setText("Usuarios");
 
         subMenuMantenimientoUsuarios.setText("Mantenimiento de Usuarios");
+        subMenuMantenimientoUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuMantenimientoUsuariosActionPerformed(evt);
+            }
+        });
         mnuUsuarios.add(subMenuMantenimientoUsuarios);
 
         subMenuReporteUsuarios.setText("Reporte de Usuarios");
@@ -167,6 +172,13 @@ public class Inicio extends javax.swing.JFrame {
         u.toFront();
         u.setVisible(true); 
     }//GEN-LAST:event_subMenuMantenimientoProductosActionPerformed
+
+    private void subMenuMantenimientoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuMantenimientoUsuariosActionPerformed
+       Usuarios formUsuario = new Usuarios();
+       escritorio.add(formUsuario);
+       formUsuario.toFront();
+       formUsuario.setVisible(true);
+    }//GEN-LAST:event_subMenuMantenimientoUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
