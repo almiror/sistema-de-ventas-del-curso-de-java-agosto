@@ -1,7 +1,7 @@
 package modelo;
 
 public class ModeloUsuarios {
-    private int id;
+    private int idusuario;
     private String nombre;
     private String apellido;
     private String tipo_decumento;
@@ -13,8 +13,8 @@ public class ModeloUsuarios {
     
     public ModeloUsuarios(){}
 
-    public ModeloUsuarios(int id, String nombre, String apellido, String tipo_decumento, String numero_documento, String tipo_usuario, String nommbreUsuario, String contrasenia, boolean estado) {
-        this.id = id;
+    public ModeloUsuarios(int idusuario, String nombre, String apellido, String tipo_decumento, String numero_documento, String tipo_usuario, String nommbreUsuario, String contrasenia, boolean estado) {
+        this.idusuario = idusuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipo_decumento = tipo_decumento;
@@ -26,11 +26,11 @@ public class ModeloUsuarios {
     }
 
     public int getId() {
-        return id;
+        return idusuario;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idusuario = id;
     }
 
     public String getNombre() {
