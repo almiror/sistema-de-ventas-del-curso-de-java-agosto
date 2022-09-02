@@ -15,6 +15,9 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
+        lblIDUsuario = new javax.swing.JLabel();
+        lblNombreUsuario = new javax.swing.JLabel();
+        lblTipoUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
         subMenuCerrarSesion = new javax.swing.JMenuItem();
@@ -40,15 +43,43 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        lblIDUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblIDUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblIDUsuario.setText("jLabel1");
+
+        lblNombreUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreUsuario.setText("jLabel1");
+
+        lblTipoUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblTipoUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblTipoUsuario.setText("jLabel1");
+
+        escritorio.setLayer(lblIDUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblNombreUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblTipoUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 662, Short.MAX_VALUE)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblIDUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNombreUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTipoUsuario)
+                .addContainerGap(455, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIDUsuario)
+                    .addComponent(lblNombreUsuario)
+                    .addComponent(lblTipoUsuario))
+                .addGap(0, 379, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -93,6 +124,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuClientes.setText("Clientes");
 
         subMenuMantenimientoClientes.setText("Mantenimiento de Clientes");
+        subMenuMantenimientoClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuMantenimientoClientesActionPerformed(evt);
+            }
+        });
         mnuClientes.add(subMenuMantenimientoClientes);
 
         subMenuReporteClientes.setText("ReporteClientes");
@@ -165,6 +201,13 @@ public class Inicio extends javax.swing.JFrame {
        formUsuario.setVisible(true);
     }//GEN-LAST:event_subMenuMantenimientoUsuariosActionPerformed
 
+    private void subMenuMantenimientoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuMantenimientoClientesActionPerformed
+        Clientes form = new Clientes();
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_subMenuMantenimientoClientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,6 +249,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    public static javax.swing.JLabel lblIDUsuario;
+    public static javax.swing.JLabel lblNombreUsuario;
+    public static javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JMenu mnuClientes;
     private javax.swing.JMenu mnuConfiguraciones;
     private javax.swing.JMenu mnuInicio;

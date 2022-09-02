@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/courses/SistemaDeVentas/src/vista/Inicio.java</file>
             <file>file:/G:/courses/SistemaDeVentas/src/controlador/ControladorUsuarios.java</file>
+            <file>file:/G:/courses/SistemaDeVentas/src/controlador/Conexion.java</file>
             <file>file:/G:/courses/SistemaDeVentas/src/vista/Usuarios.java</file>
-            <file>file:/G:/courses/SistemaDeVentas/src/vista/Clientes.java</file>
+            <file>file:/G:/courses/SistemaDeVentas/src/vista/Inicio.java</file>
         </group>
     </open-files>
 </project-private>
