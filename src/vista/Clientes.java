@@ -1,16 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
-public class Clientes extends javax.swing.JInternalFrame {
+import controlador.ControladorClientes;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.ModeloCliente;
 
+public class Clientes extends javax.swing.JInternalFrame {
+    private int idCliente = 0;
+    private String accion = "guardar";
     public Clientes() {
         initComponents();
         setTitle("Mantenimiento de Clientes");
+        vistaClientes("");
     }
+    
+    void vistaClientes(String buscar){
+        ControladorClientes cClientes = new ControladorClientes();
+        try {
+            DefaultTableModel modelo;
+            modelo = cClientes.vistaCliente(buscar);
+            listaClientes.setModel(modelo);
+        } catch (Exception e) {
+        }
+    }
+    
+    void limpiar(){
+        txtApellidos.setText("");
+        txtNombres.setText("");
+        txtNumeroDocumento.setText("");
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -53,7 +72,18 @@ public class Clientes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(listaClientes);
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
 
@@ -116,6 +146,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         jLabel6.setForeground(new java.awt.Color(24, 63, 88));
         jLabel6.setText("Tipo Doc.");
 
+        cbxEstado.setBackground(new java.awt.Color(255, 255, 255));
         cbxEstado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbxEstado.setForeground(new java.awt.Color(24, 63, 88));
         cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
@@ -126,17 +157,27 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         cbxTipoDocumento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbxTipoDocumento.setForeground(new java.awt.Color(24, 63, 88));
-        cbxTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMINISTRADOR", "VENDEDOR" }));
+        cbxTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RNC", "CEDULA", "PASAPORTE" }));
 
         btnCancelar.setBackground(new java.awt.Color(227, 80, 80));
         btnCancelar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnRegistrar.setBackground(new java.awt.Color(0, 140, 93));
         btnRegistrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -218,6 +259,68 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        accion = "guardar";
+        btnRegistrar.setText("Registrar");
+        limpiar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if(txtNombres.getText().length() < 1) {
+            JOptionPane.showMessageDialog(null, "INGRESA EL NOMBRE DEL CLIENTE");
+            return;
+        }
+        if(txtApellidos.getText().length() < 1) {
+            JOptionPane.showMessageDialog(null, "INGRESA EL APELLIDO DEL CLIENTE");
+            return;
+        }
+        if(txtNumeroDocumento.getText().length() < 1) {
+            JOptionPane.showMessageDialog(null, "INGRESA EL NUMERO DE DOCUMENTO DEL CLIENTE");
+            return;
+        }
+        ControladorClientes cCliente = new ControladorClientes();
+        ModeloCliente mCliente = new ModeloCliente();
+        mCliente.setNombre(txtNombres.getText());
+        mCliente.setApellido(txtApellidos.getText());
+        mCliente.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
+        mCliente.setNumeroDocumento(txtNumeroDocumento.getText());
+        boolean estado = false;
+        if(cbxEstado.getSelectedItem().toString().equals("ACTIVO")){
+            estado = true;
+        }
+        mCliente.setEstado(estado);
+        if(accion.equals("guardar")) {
+            if (cCliente.insertarClientes(mCliente)) {
+                JOptionPane.showMessageDialog(null, "CLIENTE REGISTRADO");
+                vistaClientes("");
+                limpiar();
+            }
+        } else if(accion.equals("modificar")) {
+            mCliente.setId(idCliente);
+            if(cCliente.modificarClientes(mCliente)) {
+                JOptionPane.showMessageDialog(null, "CLIENTE MODIFICADO");
+                vistaClientes("");
+                limpiar();
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        vistaClientes(txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void listaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaClientesMouseClicked
+     int fila = listaClientes.getSelectedRow();
+     idCliente = Integer.parseInt(listaClientes.getValueAt(fila, 0).toString());
+     txtNombres.setText(listaClientes.getValueAt(fila, 1).toString());
+     txtApellidos.setText(listaClientes.getValueAt(fila, 2).toString());
+     cbxTipoDocumento.setSelectedItem(listaClientes.getValueAt(fila, 3).toString());
+     txtNumeroDocumento.setText(listaClientes.getValueAt(fila, 4).toString());
+     cbxEstado.setSelectedItem(listaClientes.getValueAt(fila, 5).toString());
+     accion = "modificar";
+     btnRegistrar.setText("MODIFICAR");
+    }//GEN-LAST:event_listaClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
