@@ -188,7 +188,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void subMenuMantenimientoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuMantenimientoProductosActionPerformed
-       Usuarios u = new Usuarios();
+       Productos u = new Productos();
         escritorio.add(u);
         u.toFront();
         u.setVisible(true); 
