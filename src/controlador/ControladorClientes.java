@@ -11,7 +11,7 @@ public class ControladorClientes {
     private Conexion conectando = new Conexion();
     private Connection cn = conectando.conexion();
     
-    
+    // LISTANDO TODOS LOS REGISTROS DE LA BASE DE DATOS Y PASANDOLE A UN MODELO DE NUESTRA TABLA
     public DefaultTableModel vistaCliente(String buscar){
         DefaultTableModel modelo;
         String cabecera[] = {"id","NOMBRES","APELLIDOS","TIPO DOC","N° DOCUMENTO","ESTADO"};
@@ -38,7 +38,7 @@ public class ControladorClientes {
         }
     }
     
-    
+    // INSERTA LOS DATOS A LA BASE DE DATOS
     public boolean insertarClientes(ModeloCliente datos){
         String query = "INSERT INTO clientes (nombre, apellido, tipo_documento, numero_documento,estado) "
                 + "VALUES(?,?,?,?,?)";

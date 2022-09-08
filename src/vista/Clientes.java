@@ -6,30 +6,34 @@ import javax.swing.table.DefaultTableModel;
 import modelo.ModeloCliente;
 
 public class Clientes extends javax.swing.JInternalFrame {
+
     private int idCliente = 0;
     private String accion = "guardar";
+
     public Clientes() {
         initComponents();
         setTitle("Mantenimiento de Clientes");
         vistaClientes("");
     }
-    
-    void vistaClientes(String buscar){
+
+    void vistaClientes(String buscar) {
         ControladorClientes cClientes = new ControladorClientes();
         try {
             DefaultTableModel modelo;
             modelo = cClientes.vistaCliente(buscar);
             listaClientes.setModel(modelo);
+            listaClientes.getColumnModel().getColumn(0).setMaxWidth(0);
+            listaClientes.getColumnModel().getColumn(0).setMinWidth(0);
+            listaClientes.getColumnModel().getColumn(0).setPreferredWidth(0);
         } catch (Exception e) {
         }
     }
-    
-    void limpiar(){
+
+    void limpiar() {
         txtApellidos.setText("");
         txtNombres.setText("");
         txtNumeroDocumento.setText("");
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -267,15 +271,15 @@ public class Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if(txtNombres.getText().length() < 1) {
+        if (txtNombres.getText().length() < 1) {
             JOptionPane.showMessageDialog(null, "INGRESA EL NOMBRE DEL CLIENTE");
             return;
         }
-        if(txtApellidos.getText().length() < 1) {
+        if (txtApellidos.getText().length() < 1) {
             JOptionPane.showMessageDialog(null, "INGRESA EL APELLIDO DEL CLIENTE");
             return;
         }
-        if(txtNumeroDocumento.getText().length() < 1) {
+        if (txtNumeroDocumento.getText().length() < 1) {
             JOptionPane.showMessageDialog(null, "INGRESA EL NUMERO DE DOCUMENTO DEL CLIENTE");
             return;
         }
@@ -286,19 +290,19 @@ public class Clientes extends javax.swing.JInternalFrame {
         mCliente.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
         mCliente.setNumeroDocumento(txtNumeroDocumento.getText());
         boolean estado = false;
-        if(cbxEstado.getSelectedItem().toString().equals("ACTIVO")){
+        if (cbxEstado.getSelectedItem().toString().equals("ACTIVO")) {
             estado = true;
         }
         mCliente.setEstado(estado);
-        if(accion.equals("guardar")) {
+        if (accion.equals("guardar")) {
             if (cCliente.insertarClientes(mCliente)) {
                 JOptionPane.showMessageDialog(null, "CLIENTE REGISTRADO");
                 vistaClientes("");
                 limpiar();
             }
-        } else if(accion.equals("modificar")) {
+        } else if (accion.equals("modificar")) {
             mCliente.setId(idCliente);
-            if(cCliente.modificarClientes(mCliente)) {
+            if (cCliente.modificarClientes(mCliente)) {
                 JOptionPane.showMessageDialog(null, "CLIENTE MODIFICADO");
                 vistaClientes("");
                 limpiar();
@@ -311,15 +315,15 @@ public class Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void listaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaClientesMouseClicked
-     int fila = listaClientes.getSelectedRow();
-     idCliente = Integer.parseInt(listaClientes.getValueAt(fila, 0).toString());
-     txtNombres.setText(listaClientes.getValueAt(fila, 1).toString());
-     txtApellidos.setText(listaClientes.getValueAt(fila, 2).toString());
-     cbxTipoDocumento.setSelectedItem(listaClientes.getValueAt(fila, 3).toString());
-     txtNumeroDocumento.setText(listaClientes.getValueAt(fila, 4).toString());
-     cbxEstado.setSelectedItem(listaClientes.getValueAt(fila, 5).toString());
-     accion = "modificar";
-     btnRegistrar.setText("MODIFICAR");
+        int fila = listaClientes.getSelectedRow();
+        idCliente = Integer.parseInt(listaClientes.getValueAt(fila, 0).toString());
+        txtNombres.setText(listaClientes.getValueAt(fila, 1).toString());
+        txtApellidos.setText(listaClientes.getValueAt(fila, 2).toString());
+        cbxTipoDocumento.setSelectedItem(listaClientes.getValueAt(fila, 3).toString());
+        txtNumeroDocumento.setText(listaClientes.getValueAt(fila, 4).toString());
+        cbxEstado.setSelectedItem(listaClientes.getValueAt(fila, 5).toString());
+        accion = "modificar";
+        btnRegistrar.setText("MODIFICAR");
     }//GEN-LAST:event_listaClientesMouseClicked
 
 

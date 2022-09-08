@@ -45,15 +45,15 @@ public class Inicio extends javax.swing.JFrame {
 
         lblIDUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblIDUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblIDUsuario.setText("jLabel1");
+        lblIDUsuario.setText("0");
 
         lblNombreUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombreUsuario.setText("jLabel1");
+        lblNombreUsuario.setText("---");
 
         lblTipoUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTipoUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblTipoUsuario.setText("jLabel1");
+        lblTipoUsuario.setText("---");
 
         escritorio.setLayer(lblIDUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblNombreUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -67,10 +67,10 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblIDUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreUsuario)
+                .addComponent(lblNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTipoUsuario)
-                .addContainerGap(455, Short.MAX_VALUE))
+                .addComponent(lblTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(215, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,10 +96,21 @@ public class Inicio extends javax.swing.JFrame {
         mnuInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/inicio.png"))); // NOI18N
         mnuInicio.setText("Inicio");
 
+        subMenuCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         subMenuCerrarSesion.setText("Cerrar Sesión");
+        subMenuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuCerrarSesionActionPerformed(evt);
+            }
+        });
         mnuInicio.add(subMenuCerrarSesion);
 
         subMenuCerrarSistema.setText("Cerrar sistema");
+        subMenuCerrarSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuCerrarSistemaActionPerformed(evt);
+            }
+        });
         mnuInicio.add(subMenuCerrarSistema);
 
         jMenuBar1.add(mnuInicio);
@@ -156,6 +167,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuVentas.setText("Ventas");
 
         subMenuVentas.setText("Nueva Venta");
+        subMenuVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuVentasActionPerformed(evt);
+            }
+        });
         mnuVentas.add(subMenuVentas);
 
         jMenuItem1.setText("subMenuReporteVentas");
@@ -167,6 +183,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuConfiguraciones.setText("Configuraciones");
 
         subMenuConfiguracionComprobantes.setText("Comprobantes");
+        subMenuConfiguracionComprobantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuConfiguracionComprobantesActionPerformed(evt);
+            }
+        });
         mnuConfiguraciones.add(subMenuConfiguracionComprobantes);
 
         jMenuBar1.add(mnuConfiguraciones);
@@ -207,6 +228,30 @@ public class Inicio extends javax.swing.JFrame {
         form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_subMenuMantenimientoClientesActionPerformed
+
+    private void subMenuConfiguracionComprobantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuConfiguracionComprobantesActionPerformed
+      Comprobantes comprobante = new Comprobantes();
+      escritorio.add(comprobante);
+      comprobante.toFront();
+      comprobante.setVisible(true);
+    }//GEN-LAST:event_subMenuConfiguracionComprobantesActionPerformed
+
+    private void subMenuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuCerrarSesionActionPerformed
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_subMenuCerrarSesionActionPerformed
+
+    private void subMenuCerrarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuCerrarSistemaActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_subMenuCerrarSistemaActionPerformed
+
+    private void subMenuVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuVentasActionPerformed
+        Ventas v  = new Ventas();
+        escritorio.add(v);
+        v.toFront();
+        v.setVisible(true);
+    }//GEN-LAST:event_subMenuVentasActionPerformed
 
     /**
      * @param args the command line arguments

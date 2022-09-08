@@ -87,7 +87,7 @@ public class ControladorProductos {
     }
     
     public boolean eliminarProductos(ModeloProductos dts){
-        String query = "DELETE FROM producto WHERE id=?";
+        String query = "DELETE FROM productos WHERE id=?";
         try {
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setInt(1, dts.getId());

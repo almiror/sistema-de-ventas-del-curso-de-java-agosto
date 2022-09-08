@@ -20,6 +20,9 @@ public class Productos extends javax.swing.JInternalFrame {
         DefaultTableModel modelo;
         modelo = cProducto.vistaProducto(buscar);
         listaProductos.setModel(modelo);
+        listaProductos.getColumnModel().getColumn(0).setMinWidth(0);
+        listaProductos.getColumnModel().getColumn(0).setMaxWidth(0);
+        listaProductos.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
     String accion = "guardar";
 
@@ -73,9 +76,20 @@ public class Productos extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(listaProductos);
 
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,7 +272,7 @@ public class Productos extends javax.swing.JInternalFrame {
         ModeloProductos mProducto = new ModeloProductos();
         ControladorProductos cProducto = new ControladorProductos();
 
-        mProducto.setDescripcion(txtDescripcion.getText());
+        mProducto.setDescripcion(txtDescripcion.getText().toUpperCase());
         mProducto.setPrecioCompra(Double.parseDouble(txtPrecioCompra.getText()));
         mProducto.setPrecioVenta(Double.parseDouble(txtPrecioVenta.getText()));
         mProducto.setStock(Integer.parseInt(txtStock.getText()));
@@ -293,6 +307,18 @@ public class Productos extends javax.swing.JInternalFrame {
             cbxEstado.setSelectedItem("ACTIVO");
         }
     }//GEN-LAST:event_listaProductosMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+      ModeloProductos mProducto = new ModeloProductos();
+      ControladorProductos cProductos = new ControladorProductos();
+      mProducto.setId(id);
+      cProductos.eliminarProductos(mProducto);
+      vistaProducto("");
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        vistaProducto(txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
