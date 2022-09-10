@@ -5,7 +5,7 @@ public class Inicio extends javax.swing.JFrame {
 
     public Inicio() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
+//        setExtendedState(MAXIMIZED_BOTH);
     }
     
     @SuppressWarnings("unchecked")
