@@ -1,6 +1,8 @@
 package vista;
 
 import controlador.ControladorClientes;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModeloCliente;
@@ -14,6 +16,11 @@ public class Clientes extends javax.swing.JInternalFrame {
         initComponents();
         setTitle("Mantenimiento de Clientes");
         vistaClientes("");
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        int ancho = (int) d.getWidth();
+        int alto = (int) d.getHeight() - 100;
+        setSize(ancho, alto);
     }
 
     void vistaClientes(String buscar) {
@@ -65,6 +72,7 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        listaClientes.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         listaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -76,6 +84,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaClientes.setRowHeight(35);
         listaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listaClientesMouseClicked(evt);

@@ -1,6 +1,8 @@
 package vista;
 
 import controlador.ControladorUsuarios;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModeloUsuarios;
@@ -13,6 +15,11 @@ public class Usuarios extends javax.swing.JInternalFrame {
         initComponents();
         setTitle("Mantenimiento de Usuarios");
         vistaUsuario("");
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        int ancho = (int) d.getWidth();
+        int alto = (int) d.getHeight() - 100;
+        setSize(ancho, alto);
     }
 
     void vistaUsuario(String buscar) {
@@ -70,6 +77,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        listaUsuarios.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         listaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -81,6 +89,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaUsuarios.setRowHeight(35);
         listaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listaUsuariosMouseClicked(evt);

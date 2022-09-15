@@ -1,6 +1,8 @@
 package vista;
 
 import controlador.ControladorProductos;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModeloProductos;
@@ -13,6 +15,11 @@ public class Productos extends javax.swing.JInternalFrame {
         initComponents();
         setTitle("Mantenimiento de Productos");
         vistaProducto("");
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        int ancho = (int) d.getWidth();
+        int alto = (int) d.getHeight() - 100;
+        setSize(ancho, alto);
     }
 
     void vistaProducto(String buscar) {
@@ -58,6 +65,7 @@ public class Productos extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        listaProductos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         listaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -69,6 +77,7 @@ public class Productos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaProductos.setRowHeight(35);
         listaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listaProductosMouseClicked(evt);

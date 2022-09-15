@@ -125,7 +125,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="subMenuReporteVentas"/>
+                <Property name="text" type="java.lang.String" value="Ventas Realizadas"/>
               </Properties>
             </MenuItem>
           </SubComponents>

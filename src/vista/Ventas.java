@@ -1,17 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
+import controlador.CbxComprobante;
+import controlador.ControladorVentas;
+import controlador.TraerDetalleComprobante;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.ModeloComprobante;
+import modelo.ModeloDetalleVentas;
+import modelo.ModeloVentas;
 
-/**
- *
- * @author julio
- */
 public class Ventas extends javax.swing.JInternalFrame {
 
     public static DefaultTableModel modelo;
@@ -19,11 +19,25 @@ public class Ventas extends javax.swing.JInternalFrame {
 
     public Ventas() {
         initComponents();
-        this.setLocation(250, 0);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        int ancho = (int) d.getWidth();
+        int alto = (int) d.getHeight() - 100;
+        setSize(ancho, alto);
         setTitle("SISTEMA DE VENTAS");
         txtCliente.setEnabled(false);
         modelo = new DefaultTableModel(null, cabecera);
         listaProducto.setModel(modelo);
+        listaProducto.getColumnModel().getColumn(0).setMaxWidth(0);
+        listaProducto.getColumnModel().getColumn(0).setMinWidth(0);
+        listaProducto.getColumnModel().getColumn(0).setPreferredWidth(0);
+        listaProducto.getColumnModel().getColumn(1).setMaxWidth(300);
+        listaProducto.getColumnModel().getColumn(1).setMinWidth(300);
+        listaProducto.getColumnModel().getColumn(1).setPreferredWidth(300);
+        CbxComprobante comprobante = new CbxComprobante();
+        comprobante.vistaCombo(cbxComprobantes);
+        idCliente.setVisible(false);
+        idComprobante.setVisible(false);
     }
 
     void calcular() {
@@ -77,7 +91,6 @@ public class Ventas extends javax.swing.JInternalFrame {
         btnBuscarProducto = new javax.swing.JButton();
         txtProducto = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        idProducto = new javax.swing.JLabel();
         idComprobante = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
@@ -104,6 +117,11 @@ public class Ventas extends javax.swing.JInternalFrame {
         idCliente.setText("0");
 
         cbxComprobantes.setBackground(new java.awt.Color(255, 255, 255));
+        cbxComprobantes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxComprobantesItemStateChanged(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Comprobantes");
@@ -120,8 +138,8 @@ public class Ventas extends javax.swing.JInternalFrame {
         lblNumero.setText("00000000");
 
         listaProducto.setBackground(new java.awt.Color(255, 255, 255));
-        listaProducto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        listaProducto.setForeground(new java.awt.Color(22, 133, 243));
+        listaProducto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        listaProducto.setForeground(new java.awt.Color(73, 75, 76));
         listaProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -133,6 +151,7 @@ public class Ventas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaProducto.setRowHeight(35);
         listaProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listaProductoKeyPressed(evt);
@@ -167,6 +186,11 @@ public class Ventas extends javax.swing.JInternalFrame {
         btnRegistrar.setBackground(new java.awt.Color(5, 143, 235));
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("GENERAR VENTA");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 127, 199));
@@ -192,8 +216,6 @@ public class Ventas extends javax.swing.JInternalFrame {
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Producto");
-
-        idProducto.setText("0");
 
         idComprobante.setText("0");
 
@@ -222,10 +244,7 @@ public class Ventas extends javax.swing.JInternalFrame {
                                         .addComponent(idCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(idProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel15)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,8 +288,7 @@ public class Ventas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(idCliente)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel15)
-                    .addComponent(idProducto))
+                    .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,16 +368,71 @@ public class Ventas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_listaProductoKeyPressed
 
+    private void cbxComprobantesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxComprobantesItemStateChanged
+        idComprobante.setText(cbxComprobantes.getItemAt(cbxComprobantes.getSelectedIndex()).getId());
+        TraerDetalleComprobante cComprobantes = new TraerDetalleComprobante();
+        cComprobantes.tipoComprobante(idComprobante.getText());
+        lblSerie.setText(cComprobantes.serie);
+        lblNumero.setText(cComprobantes.vistaNumero(idComprobante.getText()));
+    }//GEN-LAST:event_cbxComprobantesItemStateChanged
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if(idCliente.getText().equals("0")){
+            JOptionPane.showMessageDialog(null, "SELECCIONA UN CLIENTE");
+            ListaClientes form = new ListaClientes();
+            form.setVisible(true);
+            return;
+        }
+        if(listaProducto.getRowCount() <= 0){
+            JOptionPane.showMessageDialog(null, "POR FAVOR INGRESA LOS PRODUCTOS A VENDER");
+            VistaProductos vP = new VistaProductos();
+            vP.setVisible(true);
+            return;
+        }
+        
+        ModeloVentas mVentas = new ModeloVentas();
+        ControladorVentas cVentas = new ControladorVentas();
+        
+        mVentas.setIdCliente(Integer.parseInt(idCliente.getText()));
+        mVentas.setIdComprobante(Integer.parseInt(idComprobante.getText()));
+        mVentas.setIdUsuario(Integer.parseInt(Inicio.lblIDUsuario.getText())); // 50
+        mVentas.setNumeroComprobante(lblSerie.getText()+ " "+lblNumero.getText());
+        mVentas.setSubTotal(Double.parseDouble(lblSubTotal.getText()));
+        mVentas.setItbis(Double.parseDouble(lblITBIS.getText()));
+        mVentas.setTotal(Double.parseDouble(lblTotal.getText()));
+        mVentas.setFecha("2022-09-13");
+        mVentas.setEstado("EFECTUADA");
+        if(cVentas.insertarVenta(mVentas)) {
+            ModeloDetalleVentas mDetalleVenta = new ModeloDetalleVentas();
+            for (int i = 0; i < listaProducto.getRowCount(); i++) {
+                mDetalleVenta.setIdProducto(Integer.parseInt(listaProducto.getValueAt(i, 0).toString()));
+                mDetalleVenta.setCantidad(Integer.parseInt(listaProducto.getValueAt(i, 3).toString()));
+                mDetalleVenta.setPrecioUnitario(Double.parseDouble(listaProducto.getValueAt(i, 2).toString()));
+                mDetalleVenta.setSubTotal(Double.parseDouble(listaProducto.getValueAt(i, 5).toString()));
+                mDetalleVenta.setItbis(Double.parseDouble(listaProducto.getValueAt(i, 6).toString()));
+                mDetalleVenta.setTotal(Double.parseDouble(listaProducto.getValueAt(i, 7).toString()));
+                cVentas.insertarDetalleDeVenta(mDetalleVenta);
+            }
+            
+            TraerDetalleComprobante comprobante = new TraerDetalleComprobante();
+            ModeloComprobante mcomprobante = new ModeloComprobante();
+            mcomprobante.setId(Integer.parseInt(idComprobante.getText()));
+            mcomprobante.setNumero(lblNumero.getText());
+            comprobante.cambiarNumero(mcomprobante);
+            JOptionPane.showMessageDialog(null, "SE INSERTO UN NUEVA VENTA");
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> cbxComprobantes;
+    private javax.swing.JComboBox<CbxComprobante> cbxComprobantes;
     public static javax.swing.JLabel idCliente;
     private javax.swing.JLabel idComprobante;
-    public static javax.swing.JLabel idProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

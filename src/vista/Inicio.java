@@ -5,7 +5,7 @@ public class Inicio extends javax.swing.JFrame {
 
     public Inicio() {
         initComponents();
-//        setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(MAXIMIZED_BOTH);
     }
     
     @SuppressWarnings("unchecked")
@@ -174,7 +174,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         mnuVentas.add(subMenuVentas);
 
-        jMenuItem1.setText("subMenuReporteVentas");
+        jMenuItem1.setText("Ventas Realizadas");
         mnuVentas.add(jMenuItem1);
 
         jMenuBar1.add(mnuVentas);

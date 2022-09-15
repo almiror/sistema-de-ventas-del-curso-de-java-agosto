@@ -18,6 +18,18 @@ public class VistaProductos extends javax.swing.JFrame {
         DefaultTableModel modelo;
         modelo = cProducto.vistaProducto(buscar);
         listaProductos.setModel(modelo);
+        listaProductos.getColumnModel().getColumn(0).setMaxWidth(0);
+        listaProductos.getColumnModel().getColumn(0).setMinWidth(0);
+        listaProductos.getColumnModel().getColumn(0).setPreferredWidth(0);
+        listaProductos.getColumnModel().getColumn(2).setMaxWidth(0);
+        listaProductos.getColumnModel().getColumn(2).setMinWidth(0);
+        listaProductos.getColumnModel().getColumn(2).setPreferredWidth(0);
+        listaProductos.getColumnModel().getColumn(6).setMaxWidth(0);
+        listaProductos.getColumnModel().getColumn(6).setMinWidth(0);
+        listaProductos.getColumnModel().getColumn(6).setPreferredWidth(0);
+        listaProductos.getColumnModel().getColumn(1).setMaxWidth(300);
+        listaProductos.getColumnModel().getColumn(1).setMinWidth(300);
+        listaProductos.getColumnModel().getColumn(1).setPreferredWidth(300);
     }
 
     void calcular() {
@@ -68,6 +80,12 @@ public class VistaProductos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaProductos.setRowHeight(35);
+        listaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaProductosMousePressed(evt);
+            }
+        });
         listaProductos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listaProductosKeyPressed(evt);
@@ -136,7 +154,7 @@ public class VistaProductos extends javax.swing.JFrame {
             double subtotal = Double.parseDouble(listaProductos.getValueAt(fila, 3).toString()) / 1.18;
             double itbis = Double.parseDouble(listaProductos.getValueAt(fila, 3).toString()) - subtotal;
             String data[] = new String[Ventas.cabecera.length];
-            data[0] = listaProductos.getValueAt(fila, 0).toString();
+            data[0] = listaProductos.getValueAt(fila, 0).toString(); // 1
             data[1] = listaProductos.getValueAt(fila, 1).toString();
             data[2] = listaProductos.getValueAt(fila, 3).toString(); //PRECIO 50
             data[3] = "1";
@@ -145,33 +163,37 @@ public class VistaProductos extends javax.swing.JFrame {
             data[6] = String.valueOf(Math.round(itbis * 100) / 100d); //ITBIS
             data[7] = listaProductos.getValueAt(fila, 3).toString();//TOTAL
 
-            int cantidad = 1;
-            if (Ventas.listaProducto.getRowCount() > 0) { // VALIDANDO SI HAY DATOS EN LA TABLA
-                for (int i = 0; i < Ventas.listaProducto.getRowCount(); i++) { //recorremos
-                    System.out.println(i);
-                    System.out.println("ID " + Ventas.listaProducto.getValueAt(i, 0).toString()); // 1
-                    if (Ventas.listaProducto.getValueAt(i, 0).toString().equals(listaProductos.getValueAt(fila, 0).toString())) { //comparamos s hay un id en ventas
-                        cantidad = Integer.parseInt(Ventas.listaProducto.getValueAt(i, 3).toString()) + 1;
-                        calcularFila(i, cantidad);
-                        calcular();
-                        System.out.println("AQUI SOLO INGRESO SI EXISTE EL PRODUCTO AÑADIDO EN LA VENTA ");
-                        System.out.println(Ventas.listaProducto.getValueAt(i, 0).toString());
-                    } else {
-                        Ventas.modelo.addRow(data);
-                        calcular();
-                        System.out.println("AQUI AGREGO OTRO PRODUCTO");
+            String IDProducto = listaProductos.getValueAt(fila, 0).toString(); //ESTE ES EL ID DEL PRODUCTO QUE INTENTO INRGESA NUEVAMENTE
+            boolean ExisteID = true;
+            if (Ventas.listaProducto.getRowCount() > 0) {
+                for (int i = 0; i < Ventas.listaProducto.getRowCount(); i++) {
+                    if (Ventas.listaProducto.getValueAt(i, 0).toString().equals(IDProducto)) {
+                        int cantidad = Integer.parseInt(Ventas.listaProducto.getValueAt(i, 3).toString()) + 1;
+                        double totalProducto = cantidad * Double.parseDouble(listaProductos.getValueAt(fila, 3).toString());
+                        double subTotal = totalProducto / 1.18;
+                        double itbisP = subTotal * 0.18;
+                        Ventas.listaProducto.setValueAt(cantidad, i, 3);
+                        Ventas.listaProducto.setValueAt(Math.round(totalProducto * 100) / 100d, i, 7);
+                        Ventas.listaProducto.setValueAt(Math.round(subTotal * 100) / 100d, i, 5);
+                        Ventas.listaProducto.setValueAt(Math.round(itbisP * 100) / 100d, i, 6);
+                        ExisteID = false;
                         break;
+                    } else {
+                        ExisteID = true;
                     }
-                    Ventas.modelo.addRow(data);
-                    calcular();
                 }
-            } else {
-                Ventas.modelo.addRow(data);
-                calcular();
             }
+            if (ExisteID == true) {
+                Ventas.modelo.addRow(data);
+            }
+                calcular();
 
         }
     }//GEN-LAST:event_listaProductosKeyPressed
+
+    private void listaProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProductosMousePressed
+
+    }//GEN-LAST:event_listaProductosMousePressed
 
     /**
      * @param args the command line arguments
