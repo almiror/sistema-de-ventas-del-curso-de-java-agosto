@@ -6,11 +6,14 @@ import controlador.TraerDetalleComprobante;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModeloComprobante;
 import modelo.ModeloDetalleVentas;
 import modelo.ModeloVentas;
+import reporte.Ticket80MM;
 
 public class Ventas extends javax.swing.JInternalFrame {
 
@@ -400,7 +403,8 @@ public class Ventas extends javax.swing.JInternalFrame {
         mVentas.setSubTotal(Double.parseDouble(lblSubTotal.getText()));
         mVentas.setItbis(Double.parseDouble(lblITBIS.getText()));
         mVentas.setTotal(Double.parseDouble(lblTotal.getText()));
-        mVentas.setFecha("2022-09-13");
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        mVentas.setFecha(formatoFecha.format(LocalDateTime.now()));
         mVentas.setEstado("EFECTUADA");
         if(cVentas.insertarVenta(mVentas)) {
             ModeloDetalleVentas mDetalleVenta = new ModeloDetalleVentas();
@@ -420,6 +424,10 @@ public class Ventas extends javax.swing.JInternalFrame {
             mcomprobante.setNumero(lblNumero.getText());
             comprobante.cambiarNumero(mcomprobante);
             JOptionPane.showMessageDialog(null, "SE INSERTO UN NUEVA VENTA");
+            
+            Ticket80MM ticket = new Ticket80MM();
+            ticket.ticket(cVentas.obtenerID());
+            
             this.dispose();
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed

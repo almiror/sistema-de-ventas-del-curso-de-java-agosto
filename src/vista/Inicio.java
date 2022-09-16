@@ -175,6 +175,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuVentas.add(subMenuVentas);
 
         jMenuItem1.setText("Ventas Realizadas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         mnuVentas.add(jMenuItem1);
 
         jMenuBar1.add(mnuVentas);
@@ -252,6 +257,13 @@ public class Inicio extends javax.swing.JFrame {
         v.toFront();
         v.setVisible(true);
     }//GEN-LAST:event_subMenuVentasActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        ReporteVentas rptVentas = new ReporteVentas();
+        escritorio.add(rptVentas);
+        rptVentas.toFront();
+        rptVentas.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
