@@ -1,6 +1,10 @@
 
 package vista;
 
+import reporte.ReporteClientes;
+import reporte.ReporteProductos;
+import reporte.ReporteUsuarios;
+
 public class Inicio extends javax.swing.JFrame {
 
     public Inicio() {
@@ -127,6 +131,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuProductos.add(subMenuMantenimientoProductos);
 
         subMenuReporteProductos.setText("Reportes");
+        subMenuReporteProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuReporteProductosActionPerformed(evt);
+            }
+        });
         mnuProductos.add(subMenuReporteProductos);
 
         jMenuBar1.add(mnuProductos);
@@ -143,6 +152,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuClientes.add(subMenuMantenimientoClientes);
 
         subMenuReporteClientes.setText("ReporteClientes");
+        subMenuReporteClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuReporteClientesActionPerformed(evt);
+            }
+        });
         mnuClientes.add(subMenuReporteClientes);
 
         jMenuBar1.add(mnuClientes);
@@ -159,6 +173,11 @@ public class Inicio extends javax.swing.JFrame {
         mnuUsuarios.add(subMenuMantenimientoUsuarios);
 
         subMenuReporteUsuarios.setText("Reporte de Usuarios");
+        subMenuReporteUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuReporteUsuariosActionPerformed(evt);
+            }
+        });
         mnuUsuarios.add(subMenuReporteUsuarios);
 
         jMenuBar1.add(mnuUsuarios);
@@ -264,6 +283,21 @@ public class Inicio extends javax.swing.JFrame {
         rptVentas.toFront();
         rptVentas.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void subMenuReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuReporteProductosActionPerformed
+        ReporteProductos rpt = new ReporteProductos();
+        rpt.reporteProductos();
+    }//GEN-LAST:event_subMenuReporteProductosActionPerformed
+
+    private void subMenuReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuReporteClientesActionPerformed
+       ReporteClientes rpt = new ReporteClientes();
+       rpt.reporteClientes();
+    }//GEN-LAST:event_subMenuReporteClientesActionPerformed
+
+    private void subMenuReporteUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuReporteUsuariosActionPerformed
+       ReporteUsuarios rpt = new ReporteUsuarios();
+       rpt.reporteUsuarios();
+    }//GEN-LAST:event_subMenuReporteUsuariosActionPerformed
 
     /**
      * @param args the command line arguments

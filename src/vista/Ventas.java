@@ -423,7 +423,7 @@ public class Ventas extends javax.swing.JInternalFrame {
             mcomprobante.setId(Integer.parseInt(idComprobante.getText()));
             mcomprobante.setNumero(lblNumero.getText());
             comprobante.cambiarNumero(mcomprobante);
-            JOptionPane.showMessageDialog(null, "SE INSERTO UN NUEVA VENTA");
+            JOptionPane.showMessageDialog(null, "SE INSERTO UNA NUEVA VENTA");
             
             Ticket80MM ticket = new Ticket80MM();
             ticket.ticket(cVentas.obtenerID());

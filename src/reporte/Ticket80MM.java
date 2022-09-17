@@ -186,12 +186,19 @@ public class Ticket80MM {
                     totalDato.setVerticalAlignment(Element.ALIGN_CENTER);
                     totalDato.setHorizontalAlignment(Element.ALIGN_LEFT);
                     totalDato.setBorder(0);
+                    
+                    PdfPCell descripcionproducto = new PdfPCell(new Phrase(rs.getString("p.descripcion"), fuenteDescripcion));
+                    descripcionproducto.setVerticalAlignment(Element.ALIGN_CENTER);
+                    descripcionproducto.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    descripcionproducto.setBorder(0);
+                    descripcionproducto.setColspan(5);
 
                     ventas.addCell(cantidadDato);
                     ventas.addCell(medidaDato);
                     ventas.addCell(precioDato);
                     ventas.addCell(itbisDato);
                     ventas.addCell(totalDato);
+                    ventas.addCell(descripcionproducto);
                 }
             } catch (Exception e) {
             }
